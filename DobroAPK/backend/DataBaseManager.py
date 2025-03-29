@@ -17,7 +17,7 @@ class DataBaseManager:
             port=5178,
             dbname="postgres",
             user="postgres",
-            password="Gb%v5oVA",
+            password="********", # Пароль от БД
             client_encoding='utf-8'
         )
         return connect
