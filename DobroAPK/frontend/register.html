@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dobrodeYatel.COM</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/frontend/styles/registerStyle.css">
+    
+</head>
+<body>
+
+    <div class="City-eco"></div>
+    <div class="windowLogIn">
+    
+        <div id="inputData">
+            <div id="message"></div>
+            <p>Введите логин: <br> 
+                <input name="login" id="log">
+            </p>
+            <p>Введите пароль: <br> 
+                <input name="password" id="pswd" type="text">
+            </p>
+            <button onclick="send()">Зарегестрироваться</button>
+        </div>
+    </div>
+    
+<script>
+    async function send() {
+    const login_user = document.getElementById("log").value;
+    const pswd_user = document.getElementById("pswd").value;
+    const messageDiv = document.getElementById("message");
+
+    messageDiv.textContent = "Ожидание ответа..."; // Отобразим процесс
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/register", {
+            method: "POST",
+            headers: { "Accept": "application/json", "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                name: login_user,
+                pswd: pswd_user
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Логирование всей информации, которая приходит
+            console.log(data)
+            if (data){
+                messageDiv.textContent = 'Зарегестриравано';
+                window.location.href = "/public/main.html";}
+            else
+                messageDiv.textContent = 'Данный логин уже существует'
+        } else {
+            const errorText = await response.text(); // Читаем текст ошибки (если есть)
+            messageDiv.textContent = `Ошибка регистрации: ${errorText}`;
+        }
+    } catch (error) {
+        console.error("Ошибка запроса:", error);
+        messageDiv.textContent = "Ошибка подключения к серверу.";
+    }
+
+
+                
+    }
+</script>
+</body>
+</html>

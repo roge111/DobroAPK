@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    justify-content: center;  /* Горизонтальное выравнивание */
+    align-items: center;      /* Вертикальное выравнивание */
+    height: 100vh;            /* 100% высоты экрана */
+    margin: 0;
+}
+.City-eco {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url(/frontend/images/City-eco.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+
+
+.windowLogIn {
+    position: relative; /* Оставляем внутри flex-контейнера */
+    z-index: 2;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9); /* Фон окна */
+    text-align: center; /* Выравнивание текста внутри */
+    display: flex;
+    flex-direction: column; /* Расположить элементы вертикально */
+    align-items: center; /* Выравнивание внутри */
+    gap: 10px; /* Отступы между элементами */
+}
+
+#inputData {
+    position: relative;
+    width: 100%; /* Растянуть на всю ширину окна */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
