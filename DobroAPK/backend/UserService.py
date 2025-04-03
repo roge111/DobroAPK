@@ -20,7 +20,7 @@ class UserService:
     def register(self, login, password):
 
         if self._check_login(login):
-            return False
+            return -1
         
         password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         last_id = self.db.query_database("SELECT MAX(id) FROM users;", fetch_one=True)[0] or 0
@@ -28,8 +28,8 @@ class UserService:
         new_id = last_id + 1
 
         self.db.query_database(
-            f"INSERT INTO users (id, login, password) VALUES ({new_id}, '{login}', '{password}');", reg=True)
-        return True
+            f"INSERT INTO users (id, login, password) VALUES ({new_id}, '{login}', '{password_hash}');", reg=True)
+        return new_id
 
     def login(self, login, password):
         stored_password = self.db.query_database(
