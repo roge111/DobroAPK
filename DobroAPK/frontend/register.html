@@ -42,13 +42,14 @@
         });
 
         if (response.ok) {
-            const data = await response.json();
+             const data = await response.json();
 
             // Логирование всей информации, которая приходит
             console.log(data)
-            if (data){
+            if (data >= 1){
                 messageDiv.textContent = 'Зарегестриравано';
-                window.location.href = "/public/main.html";}
+                localStorage.setItem("userId", data);
+                window.location.href = "/frontend/personalAccount.html";}
             else
                 messageDiv.textContent = 'Данный логин уже существует'
         } else {
