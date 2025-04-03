@@ -34,8 +34,10 @@ user_service = UserService(db_manager)
 async def register(data: dict = Body()):
     log = data.get("name")
     pswd = data.get("pswd")
-    success = user_service.register(log, pswd)
-    return success
+    id = user_service.register(log, pswd)
+    if id >= 0:
+        user_ifno.insert_user_in_data_table(id, log)
+    return id
 
 @app.post("/login")
 async def logIn(data: dict = Body):
