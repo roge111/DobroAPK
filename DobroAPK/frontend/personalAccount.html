@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>dobrodeYatel.COM</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/frontend/styles/personalAccount.css">
+    
+</head>
+<body>
+    <div class="City-eco"></div>
+    <div id="inputInfo">
+        <p>Введите новый логин: <br> 
+            <input name="login" id="log">
+        </p>
+        <p>Введите новое ФИО <br> 
+            <input name="lfp" id="lfp">
+        </p>
+        <p>Введите новые контакты: <br> 
+            <input name="contacts" id="cont">
+        </p>
+        <p>Расскажите о себе: <br> 
+            <input name="information" id="info">
+        </p>
+        <p>Расскажите о хобби: <br> 
+            <input name="hobbi" id="hobbi">
+        </p>
+        <button onclick="update()">Обновить Данные</button>
+    </div>
+    
+    <script>
+        async function update() {
+            const id = localStorage.getItem("userId");
+            const login_user = document.getElementById("log").value;
+            const lfp_user = document.getElementById("lfp").value;
+            const contacts_user = document.getElementById("cont").value;
+            const information_user = document.getElementById("info").value;
+            const hobbi_user = document.getElementById("hobbi").value;
+            console.log(id)
+            try {
+                const response = await fetch("http://127.0.0.1:8001/updateInformationAccount", {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                        user_id: id,
+                        login: login_user,
+                        lfp: lfp_user,
+                        contacts: contacts_user,
+                        info: information_user,
+                        hobbi: hobbi_user
+                    })
+                });
+            } catch(error) {
+                console.error("Ошибка запроса:", error);
+                messageDiv.textContent = "Ошибка подключения к серверу.";
+            }
+            
+            
+        }
+        
+
+
+
+    </script>
+
+</body>
+</html>
